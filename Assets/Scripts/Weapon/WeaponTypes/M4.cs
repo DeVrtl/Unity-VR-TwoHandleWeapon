@@ -1,11 +1,11 @@
 public class M4 : Weapon
 {
-    public override void Shoot()
+    protected override void Shoot()
     {
         base.Shoot();
     }
 
-    public override void StopShoot()
+    protected override void StopShoot()
     {
         base.StopShoot();
     }

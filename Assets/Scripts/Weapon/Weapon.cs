@@ -22,20 +22,29 @@ public abstract class Weapon : MonoBehaviour
     public event UnityAction MagazineEntered;
     public event UnityAction MagazineEjected;
 
-    private void Awake()
+    private void OnEnable()
     {
-        _rigidbody = GetComponent<Rigidbody>();
-
         _magazineHolder.selectEntered.AddListener(AddMagazine);
         _magazineHolder.selectExited.AddListener(RemoveMagazine);
     }
 
-    public virtual void Shoot()
+    private void OnDisable()
+    {
+        _magazineHolder.selectEntered.RemoveListener(AddMagazine);
+        _magazineHolder.selectExited.RemoveListener(RemoveMagazine);
+    }
+
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
+
+    protected virtual void Shoot()
     {
         _shooting = StartCoroutine(ShootWithFireRate());
     }
 
-    public virtual void StopShoot()
+    protected virtual void StopShoot()
     {
         if (_shooting == null)
             return;

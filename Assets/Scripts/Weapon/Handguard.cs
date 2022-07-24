@@ -10,6 +10,12 @@ public class Handguard : XRSimpleInteractable
     public bool IsGrabbed => _isGrabbed;
     public float RecoilResistance => _recoilResistance;
 
+    private new void OnDisable()
+    {
+        selectEntered.RemoveListener(HandguardGrabed);
+        selectExited.RemoveListener(HandguardUngrabed);
+    }
+
     private new void Awake()
     {
         selectEntered.AddListener(HandguardGrabed);
