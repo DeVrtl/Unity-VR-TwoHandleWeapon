@@ -6,18 +6,16 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class Weapon : MonoBehaviour
 {
-    [SerializeField] private Handguard _handguard;
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private XRSocketInteractor _magazineHolder;
     [SerializeField] private float _raycastDistance;
-    [SerializeField] private float _recoilForce;
     [SerializeField] private float _fireRate;
 
-    private Rigidbody _rigidbody;
     private Coroutine _shooting;
     private Magazine _magazine;
 
     public event UnityAction WeaponShot;
+    public event UnityAction WeponShoted;
     public event UnityAction MagazineEmpty;
     public event UnityAction MagazineEntered;
     public event UnityAction MagazineEjected;
@@ -34,17 +32,12 @@ public abstract class Weapon : MonoBehaviour
         _magazineHolder.selectExited.RemoveListener(RemoveMagazine);
     }
 
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody>();
-    }
-
-    protected virtual void Shoot()
+    public virtual void Shoot()
     {
         _shooting = StartCoroutine(ShootWithFireRate());
     }
 
-    protected virtual void StopShoot()
+    public virtual void StopShoot()
     {
         if (_shooting == null)
             return;
@@ -64,7 +57,7 @@ public abstract class Weapon : MonoBehaviour
 
             WeaponShot?.Invoke();
             _magazine.SubtractCapacity(1);
-            ApllyRecoil();
+            WeponShoted?.Invoke();
 
             Ray ray = new Ray(_shootPoint.position, _shootPoint.forward);
 
@@ -76,25 +69,6 @@ public abstract class Weapon : MonoBehaviour
 
             yield return new WaitForSeconds(1 / _fireRate);
         }
-    }
-
-    private void ApllyRecoil()
-    {
-        if (_handguard.IsGrabbed == true)
-        {
-            float recoil = _recoilForce - _handguard.RecoilResistance;
-
-            CalculateRecoil(recoil);
-        }
-        else
-        {
-            CalculateRecoil(_recoilForce);
-        }
-    }
-
-    private void CalculateRecoil(float recoil)
-    {
-        _rigidbody.AddRelativeForce(Vector3.back * recoil, ForceMode.Acceleration);
     }
 
     private void AddMagazine(SelectEnterEventArgs interactor)

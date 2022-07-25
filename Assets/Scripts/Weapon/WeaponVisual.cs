@@ -1,53 +1,33 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Weapon))]
+[RequireComponent(typeof(Weapon), typeof(Rigidbody))]
 public class WeaponVisual : MonoBehaviour
 {
+    [SerializeField] private Handguard _handguard;
     [SerializeField] private ParticleSystem _shootEffect;
-    [SerializeField] private AudioSource _source;
     [SerializeField] private Transform _emptyBulletsSpawnPoint;
     [SerializeField] private EmptyBullet _emptyBullet;
-    [SerializeField] private AudioClip _shootSound;
-    [SerializeField] private AudioClip _ejectMagazine;
-    [SerializeField] private AudioClip _enterMagazine;
-    [SerializeField] private AudioClip _emptyMagazine;
+    [SerializeField] private float _recoilForce;
 
+    private Rigidbody _rigidbody;
     private Weapon _weapon;
 
     private void Awake()
     {
+        _rigidbody = GetComponent<Rigidbody>();
         _weapon = GetComponent<Weapon>();
     }
 
     private void OnEnable()
     {
         _weapon.WeaponShot += OnWeaponShot;
-        _weapon.MagazineEntered += OnMagazineEntered;
-        _weapon.MagazineEjected += OnMagazineEjected;
-        _weapon.MagazineEmpty += OnMagazineEmpty;
+        _weapon.WeponShoted += OnWeponShoted;
     }
 
     private void OnDisable()
     {
         _weapon.WeaponShot -= OnWeaponShot;
-        _weapon.MagazineEntered -= OnMagazineEntered;
-        _weapon.MagazineEjected -= OnMagazineEjected;
-        _weapon.MagazineEmpty -= OnMagazineEmpty;
-    }
-
-    private void OnMagazineEjected()
-    {
-        _source.PlayOneShot(_ejectMagazine);
-    }
-
-    private void OnMagazineEntered()
-    {
-        _source.PlayOneShot(_enterMagazine);
-    }
-
-    private void OnMagazineEmpty()
-    {
-        _source.PlayOneShot(_emptyMagazine);
+        _weapon.WeponShoted -= OnWeponShoted;
     }
 
     private void OnWeaponShot()
@@ -55,6 +35,24 @@ public class WeaponVisual : MonoBehaviour
         Instantiate(_emptyBullet, _emptyBulletsSpawnPoint.position, Quaternion.identity);
 
         _shootEffect.Play();
-        _source.PlayOneShot(_shootSound);
+    }
+
+    private void OnWeponShoted()
+    {
+        if (_handguard.IsGrabbed == false)
+        {
+            float recoil = _recoilForce - _handguard.RecoilResistance;
+
+            CalculateRecoil(recoil);
+        }
+        else
+        {
+            CalculateRecoil(_recoilForce);
+        }
+    }
+
+    private void CalculateRecoil(float recoil)
+    {
+        _rigidbody.AddRelativeForce(Vector3.back * recoil, ForceMode.Acceleration);
     }
 }
