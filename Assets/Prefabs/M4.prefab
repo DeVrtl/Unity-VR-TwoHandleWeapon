@@ -939,7 +939,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3070984017748886968}
   - component: {fileID: 4577832599179334340}
-  - component: {fileID: 7546131630049171494}
+  - component: {fileID: 3757430283670033750}
+  - component: {fileID: 5529213459006456903}
   m_Layer: 0
   m_Name: MagazineHolder
   m_TagString: Untagged
@@ -974,7 +975,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0020216915, y: 0.004236983, z: 0.0056394604}
   m_Center: {x: 0.00011653378, y: 0.00023408279, z: 0.0016578725}
---- !u!114 &7546131630049171494
+--- !u!114 &3757430283670033750
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1025,6 +1026,18 @@ MonoBehaviour:
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
+--- !u!114 &5529213459006456903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6699429841538108521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb0ad5c6730c824988761cb2ccc083b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7242504729028384226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,6 +1085,7 @@ GameObject:
   - component: {fileID: 2867161571384971962}
   - component: {fileID: 5241952949633267260}
   - component: {fileID: 3022277010760864132}
+  - component: {fileID: 3043644665725166622}
   m_Layer: 3
   m_Name: M4
   m_TagString: Untagged
@@ -1351,12 +1365,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfea278ffe3c5f44089521e9e090b6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _handguard: {fileID: 3137762988144837745}
-  _shootPoint: {fileID: 4384322590271511159}
-  _magazineHolder: {fileID: 7546131630049171494}
-  _raycastDistance: 1000
-  _recoilForce: 25
-  _fireRate: 8.5
 --- !u!114 &3022277010760864132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1369,15 +1377,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89e62fdfb6bef774a8397600930aa198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shootPoint: {fileID: 4384322590271511159}
+  _handguardView: {fileID: 7675284763787110308}
+  _handguard: {fileID: 3137762988144837745}
   _shootEffect: {fileID: 5195138389112488518}
-  _source: {fileID: 2392471978028452705}
   _emptyBulletsSpawnPoint: {fileID: 5953736443986156920}
   _emptyBullet: {fileID: 6221262390364339365, guid: c072414c11d6c074ead463b3009ead3f,
     type: 3}
+  _recoilForce: 25
+  _raycastDistance: 1000
+--- !u!114 &3043644665725166622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705953305401607526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd172f7a4b1cd114da2aac01823ba26d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _source: {fileID: 2392471978028452705}
   _shootSound: {fileID: 8300000, guid: 45f49ca6cc0736e4484d37b23de1b763, type: 3}
   _ejectMagazine: {fileID: 8300000, guid: d21c7141ca7690641ae01a2da509d4cc, type: 3}
   _enterMagazine: {fileID: 8300000, guid: c81bc2dc2bbbe4f448fa88b16119c867, type: 3}
-  _emptyMagazine: {fileID: 8300000, guid: 89d21d5b9da4fc9448c80d5aa90dba88, type: 3}
 --- !u!1 &8211548886720841391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1516,6 +1540,7 @@ GameObject:
   - component: {fileID: 387191449574490316}
   - component: {fileID: 6411145017718482330}
   - component: {fileID: 3137762988144837745}
+  - component: {fileID: 7675284763787110308}
   m_Layer: 3
   m_Name: HandguardCollider
   m_TagString: Untagged
@@ -1629,7 +1654,19 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  _recoilResistance: 20
+--- !u!114 &7675284763787110308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068522158254788664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ba62d13baa52645948369aed91deed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recoilResistance: 2
 --- !u!1001 &5195138389130976646
 PrefabInstance:
   m_ObjectHideFlags: 0
