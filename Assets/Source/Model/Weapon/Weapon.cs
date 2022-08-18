@@ -33,7 +33,7 @@ public abstract class Weapon : MonoBehaviour
             enemy.TakeHit(ray.direction);
     }
     
-    public void SetMagazine(Magazine magazine)
+    public void Reload(Magazine magazine)
     {
         _magazine = magazine;
     }

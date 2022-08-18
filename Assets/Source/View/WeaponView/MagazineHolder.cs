@@ -33,14 +33,14 @@ public class MagazineHolder : MonoBehaviour
     private void AddMagazine(SelectEnterEventArgs interactor)
     {
         _magazine = interactor.interactableObject.transform.GetComponent<Magazine>();
-        _weapon.SetMagazine(_magazine);
+        _weapon.Reload(_magazine);
         MagazineEntered?.Invoke();
     }
 
     private void RemoveMagazine(SelectExitEventArgs interactor)
     {
         _magazine = null;
-        _weapon.SetMagazine(_magazine);
+        _weapon.Reload(_magazine);
         MagazineEjected?.Invoke();
     }
 }
