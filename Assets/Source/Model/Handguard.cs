@@ -18,19 +18,14 @@ public class Handguard : XRSimpleInteractable
         selectExited.AddListener(HandguardUngrabed);
     }
 
-    private void ChangeBool(bool state)
-    {
-        _isGrabbed = state;
-    }
-
     private void HandguardGrabed(SelectEnterEventArgs interactor)
     {
-        ChangeBool(true);
+        _isGrabbed = true;
     }
 
     private void HandguardUngrabed(SelectExitEventArgs interactor)
     {
-        ChangeBool(false);
+        _isGrabbed = false;
     }
 }
 

@@ -6,11 +6,11 @@ public class EmptyBullet : MonoBehaviour
 {
     private readonly float _lifeTime = 3f;
 
-    public event UnityAction EmptyBulletCreated;
+    public event UnityAction Created;
 
     private void Start()
     {
-        EmptyBulletCreated?.Invoke();
+        Created?.Invoke();
     }
 
     private void Update()

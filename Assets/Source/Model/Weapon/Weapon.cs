@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public abstract class Weapon : MonoBehaviour
 {
     private readonly float _fireRate = 8.5f;
-    private readonly int _bulletsSubtractPerShoot = 1;
+    private readonly int _bulletsPerShoot = 1;
 
     private Coroutine _shooting;
     private Magazine _magazine;
@@ -43,7 +43,7 @@ public abstract class Weapon : MonoBehaviour
         while (_magazine.Capacity > 0 && _magazine != null)
         {
             WeaponShooting?.Invoke();
-            _magazine.SubtractCapacity(_bulletsSubtractPerShoot);
+            _magazine.TakeBullets(_bulletsPerShoot);
             WeponShoted?.Invoke();
 
             CreatingRaycast?.Invoke();

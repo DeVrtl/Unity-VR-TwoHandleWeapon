@@ -11,8 +11,8 @@ public class Magazine : MonoBehaviour
 
     public int Capacity => _capacity;
 
-    public void SubtractCapacity(int subtractionPerShot)
+    public void TakeBullets(int perShot)
     {
-        _capacity -= subtractionPerShot;
+        _capacity -= perShot;
     }
 }

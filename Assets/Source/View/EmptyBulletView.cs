@@ -15,12 +15,12 @@ public class EmptyBulletView : MonoBehaviour
 
     private void OnEnable()
     {
-        _emptyBullet.EmptyBulletCreated += OnEmptyBulletCreated;
+        _emptyBullet.Created += OnCreated;
     }
 
     private void OnDisable()
     {
-        _emptyBullet.EmptyBulletCreated -= OnEmptyBulletCreated;
+        _emptyBullet.Created -= OnCreated;
     }
 
     private void Awake()
@@ -29,7 +29,7 @@ public class EmptyBulletView : MonoBehaviour
         _emptyBullet = GetComponent<EmptyBullet>();
     }
 
-    private void OnEmptyBulletCreated()
+    private void OnCreated()
     {
         _rigidbody.AddRelativeForce(Vector3.right * _force);
     }
